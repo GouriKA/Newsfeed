@@ -1,0 +1,195 @@
+<div class="container" xmlns:>
+  <div ng-show = "homeShow" ng-init="getAllPosts()">
+
+  <!--<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <input type='file' onchange="readURL(this);" />
+  <img id="blah" src="#" alt="your image" />-->
+
+    <div class="pull-right">
+      <a class="btn btn-success" ng-click="signInClicked()"><i class="icon-search"></i> Sign In </a>
+      <a class="btn btn-success" ng-click="signUpClicked()"><i class="icon-search"></i> Sign Up </a>
+    </div><br><br>
+
+    <div ng-repeat="text in AllTextMessages.texts">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          {{text.firstName}}{{" "}}{{text.lastName}}{{" "}} posted on {{text.timeStamp | date:"MM/dd/yyyy 'at' h:mm a"}}
+        </div>
+        <div class="panel-body">
+         {{text.msg}}
+        </div>
+      </div>
+    </div><br>
+    <!---<a class="btn btn-success" ng-click="showMoreClicked()"><i class="icon-search"></i> show more</a>-->
+  </div>
+
+  <div ng-show = signInShow>
+    <h4>User Name</h4> <input ng-model="username" /><br>
+    <h4>Password </h4> <input type = "password" ng-model="password" /><br><br>
+    <a class="btn btn-success" ng-click="login()"><i class="icon-search"></i>Sign In</a>
+    <a class="btn btn-success" ng-click="cancelLogin()"><i class="icon-search"></i>Cancel</a><br><br>
+    <h4>{{errorMessage.messages[0].message}}</h4>
+    <h4>{{errorMessage.message}}</h4>
+    <br>
+  </div>
+
+  <div ng-show = signUpShow>
+    <h3>Sign Up Form</h3><br>
+    <form>
+      <input ng-model="usernameSignUp" placeholder='Enter username*'/><br><br>
+      <input ng-model="firstName" placeholder='Enter first name*' /><br><br>
+      <input ng-model="lastName" placeholder='Enter last name*'/><br>
+      <h5>Birthday <input type="date" ng-model="dob" placeholder='Enter date of birth'/></h5>
+      <h5><input type="radio" ng-model="gender" value="male" /> male
+      <input type="radio" ng-model="gender" value="female" /> female<br/></h5>
+      <input ng-model="tagLine" class="form-control input-lg" placeholder='Say something about yourself'/><br>
+      <input type = "password" ng-model="password0" placeholder='Enter password*'/><br><br>
+      <input type = "password" ng-model="password1" placeholder='Renter password*'/><br>
+    </form><br>
+    <a class="btn btn-success" ng-click="newUser()"><i class="icon-search"></i>Sign Up</a>
+    <a class="btn btn-success" ng-click="cancelLogin()"><i class="icon-search"></i>Cancel</a><br><br>
+    <h4>{{errorMessage1.messages[0].message}}</h4>
+    <h4>{{passwordMatchError}}</h4>
+  </div>
+
+  <div ng-show = "signInSuccess">
+    <h3>  Welcome {{loginInfo.firstName}}! </h3>
+
+    <div class="pull-right">
+      <a class="btn btn-success" ng-click="editPostsClicked()"><i class="icon-search"></i> My Posts</a>
+      <a class="btn btn-success" ng-click="newPostClicked()"><i class="icon-search"></i> New Post</a>
+      <a class="btn btn-success" ng-click="getAllUsersClicked()"><i class="icon-search"></i> Find Friends</a>
+      <a class="btn btn-success" ng-click="logout()"><i class="icon-search"></i> Logout</a>
+    </div><br><br>
+
+    <div ng-repeat="text in AllTextMessages.texts">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <a ng-href ng-click="findAFriendClicked(text.firstName)"> {{text.firstName}}{{" "}}{{text.lastName}}</a>{{" "}}posted on {{text.timeStamp | date:"MM/dd/yyyy 'at' h:mm a"}}
+        </div>
+        <div class="panel-body">
+          {{text.msg}}
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+  <div ng-show = "allUsersShow">
+  <h3>  List of members </h3>
+
+  <div class="pull-right">
+    <input type = "firstName" ng-model="findByFirstName" />
+    <a class="btn btn-success" ng-click="findAFriendClicked(findByFirstName)"><i class="icon-search"></i>Search</a>
+    <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a>
+    <a class="btn btn-success" ng-click="logout()"><i class="icon-search"></i> Logout</a>
+  </div><br><br>
+
+  <div ng-repeat="user in allUsers.users">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        {{user.firstName}}{{" "}}{{user.lastName}}
+      </div>
+      <div class="panel-body">
+        {{user.tagLine}}
+      </div>
+    </div><br>
+  </div>
+  </div>
+
+  <div ng-show = "userInfoShow">
+    <div class="pull-right">
+      <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a>
+      <a class="btn btn-success" ng-click="logout()"><i class="icon-search"></i> Logout</a>
+    </div>
+
+    <br><br>
+    <div ng-repeat="user in usersByName.users">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          {{user.firstName}}{{" "}}{{user.lastName}}
+        </div>
+        <div class="panel-body">
+        {{user.tagLine}}
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+
+  <div ng-show = "postOfAUserShow">
+    <h3>Welcome {{loginInfo.firstName}}! </h3>
+
+    <div class="pull-right">
+      <a class="btn btn-success" ng-click="newPostClicked()"><i class="icon-search"></i> New Post</a>
+      <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a>
+      <a class="btn btn-success" ng-click="logout()"><i class="icon-search"></i> Logout</a>
+    </div><br><br>
+
+    <div ng-repeat="text in messagesOfUser.texts">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          {{text.firstName}}{{" "}}{{text.lastName}}{{" "}}posted on {{text.timeStamp | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
+        <div class="panel-body">
+          {{text.msg}}
+        </div>
+        <div class="panel-footer clearfix">
+          <div class="pull-right">
+          <a class="btn btn-sm" ng-click="editAPostClicked(text.msg,text.timeStamp,text.id)"><i class="icon-search"></i>Edit</a>
+          <a class="btn btn-sm" ng-click="deleteClicked(text.msg,text.timeStamp,text.id)"><i class="icon-search"></i>Delete</a>
+          </div>
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+  <div ng-show = noUserMessagesShow>
+    You have not posted any Message!
+    <a class="btn btn-success" ng-click="newPost()"><i class="icon-search"></i> Post</a>
+    <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a>
+    <a class="btn btn-success" ng-click="cancelOperationOnText()"><i class="icon-search"></i>Cancel</a><br><br>
+  </div>
+
+  <div ng-show = newPostShow>
+    Enter a new Message <input ng-model="newText" class="form-control input-lg"/> <br><br>
+    <a class="btn btn-success" ng-click="newPost()"><i class="icon-search"></i> Post</a>
+    <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a>
+    <a class="btn btn-success" ng-click="cancelOperationOnText()"><i class="icon-search"></i>Cancel</a><br><br>
+    <h4>{{errorMessage2.messages[0].message}}</h4>
+  </div>
+
+  <div ng-show = editUserPost>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        Do you want to edit this message?
+      </div>
+      <div class="panel-body">
+        {{textMessage}}
+        <div class="pull-right">
+          {{msgTimeStamp | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
+      </div>
+    </div><br>
+    Enter the Text Message to be Updated : <input ng-model="updatedText" class="form-control input-lg"/><br><br>
+    <a class="btn btn-success" ng-click="editPost(textId)"><i class="icon-search"></i> Yes</a>
+    <a class="btn btn-success" ng-click="cancelOperationOnText()"><i class="icon-search"></i>No</a>
+    <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a><br><br>
+  </div>
+
+  <div ng-show = deleteConfirmation>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        Do you want to delete this message?
+      </div>
+      <div class="panel-body">
+        {{textMessage}}
+        <div class="pull-right">
+          {{msgTimeStamp | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
+      </div>
+    </div><br>
+    <a class="btn btn-success" ng-click="deletePost(textId)"><i class="icon-search"></i> Yes</a>
+    <a class="btn btn-success" ng-click="cancelOperationOnText()"><i class="icon-search"></i>No</a>
+    <a class="btn btn-success" ng-click="homePage()"><i class="icon-search"></i> Home</a><br><br>
+  </div>
+</div>
