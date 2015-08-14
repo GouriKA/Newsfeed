@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>java:com.moback.newsfeed.auth.PasswordService</config>
+	</configs>
+	<autoconfigs>
+		<config>java:com.moback.newsfeed.App</config>
+		<config>java:com.moback.newsfeed.ApplicationConfig</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
